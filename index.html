@@ -1,0 +1,287 @@
+<!doctype html>
+<html lang="sv">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GymnasieOpus | Nationella prov för gymnasiet</title>
+    <meta
+      name="description"
+      content="GymnasieOpus samlar gamla nationella prov, officiella källor, PDF-läsare och studieplaner för gymnasiet."
+    />
+    <meta name="theme-color" content="#070813" />
+    <meta property="og:title" content="GymnasieOpus | Nationella prov för gymnasiet" />
+    <meta
+      property="og:description"
+      content="En modern svensk studieportal för gamla nationella prov, officiella källor och studieplaner."
+    />
+    <link
+      rel="icon"
+      href='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" rx="14" fill="%23070813"/><path d="M18 44c9-17 18-25 28-24-9 5-14 13-15 24" fill="none" stroke="%239d7cff" stroke-width="6" stroke-linecap="round"/><path d="M25 45h23" stroke="%2343d9ff" stroke-width="5" stroke-linecap="round"/></svg>'
+    />
+    <link rel="preconnect" href="https://images.unsplash.com" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="ambient ambient-one"></div>
+    <div class="ambient ambient-two"></div>
+
+    <header class="site-header" id="top">
+      <a class="brand" href="#top" aria-label="GymnasieOpus startsida">
+        <span class="brand-mark" aria-hidden="true"><span>G</span><i></i></span>
+        <span class="brand-word">Gymnasie<span>Opus</span></span>
+      </a>
+      <nav class="main-nav" aria-label="Huvudnavigation">
+        <a href="#amnen">Ämnen</a>
+        <a href="#provbank">Provbank</a>
+        <a href="#studieplan">Studieplan</a>
+        <a href="#kallor">Källor</a>
+      </nav>
+      <div class="header-actions">
+        <button class="icon-button" id="themeToggle" type="button" aria-label="Byt tema" title="Byt tema">☼</button>
+        <a class="primary-button compact" href="#provbank">Börja plugga</a>
+        <button class="menu-button" id="menuToggle" type="button" aria-label="Öppna meny" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="hero-media" aria-hidden="true">
+          <img
+            src="https://images.unsplash.com/photo-1499750310107-5fef28a66643?auto=format&fit=crop&w=1800&q=85"
+            alt=""
+            decoding="async"
+            fetchpriority="high"
+          />
+        </div>
+        <div class="hero-content">
+          <p class="eyebrow">Officiella källor. Smartare repetition. Mindre kaos.</p>
+          <h1>Plugga inför <span>nationella proven</span>. På riktigt.</h1>
+          <p class="hero-copy">
+            Gamla prov, kursöversikter, strategier och direktvisning av PDF:er samlade i en modern studieportal
+            för gymnasiet.
+          </p>
+
+          <div class="search-panel" role="search">
+            <label class="sr-only" for="globalSearch">Sök ämne, kurs eller prov</label>
+            <input id="globalSearch" type="search" placeholder="Sök ämne, kurs eller prov..." />
+            <button type="button" id="clearSearch">Rensa</button>
+          </div>
+
+          <div class="chip-row" aria-label="Snabbfilter">
+            <button class="chip active" type="button" data-subject="Alla">Alla</button>
+            <button class="chip" type="button" data-subject="Matematik">Matematik</button>
+            <button class="chip" type="button" data-subject="Engelska">Engelska</button>
+            <button class="chip" type="button" data-subject="Svenska">Svenska</button>
+            <button class="chip" type="button" data-subject="SVA">Svenska som andraspråk</button>
+          </div>
+
+          <div class="hero-stats" aria-label="Portalens funktioner">
+            <div><strong id="subjectCount">4</strong><span>ämnesområden</span></div>
+            <div><strong id="resourceCount">104</strong><span>prov/resurser</span></div>
+            <div><strong id="pdfCount">97</strong><span>PDF direkt</span></div>
+            <div><strong>NP</strong><span>officiella källor</span></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section intro-strip" aria-label="Snabböversikt">
+        <div>
+          <span class="mini-label">Fokusläge</span>
+          <h2>En provbank som känns byggd för elever, inte arkivmappar.</h2>
+        </div>
+        <p>
+          Välj kurs, öppna material direkt, bygg en studieplan och håll koll på vilka delar du redan har tränat.
+        </p>
+      </section>
+
+      <section class="section" id="amnen">
+        <div class="section-heading">
+          <p class="eyebrow">Välj ämne</p>
+          <h2>Alla stora gymnasieprov i ett snyggt nav.</h2>
+        </div>
+        <div class="subject-grid" id="subjectGrid"></div>
+      </section>
+
+      <section class="section course-focus" id="courseFocus" hidden>
+        <div class="course-banner">
+          <img id="courseImage" alt="" decoding="async" />
+          <div>
+            <p class="eyebrow" id="courseSubject">Kurs</p>
+            <h2 id="courseTitle">Kursnamn</h2>
+            <p id="courseDescription"></p>
+            <div class="course-tags" id="courseTags"></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section exam-section" id="provbank">
+        <div class="section-heading">
+          <p class="eyebrow">Provbank</p>
+          <h2>Filtrera, öppna och förhandsvisa material.</h2>
+        </div>
+
+        <div class="filters" aria-label="Filter för provbank">
+          <label>
+            Ämne
+            <select id="subjectFilter"></select>
+          </label>
+          <label>
+            Kurs
+            <select id="courseFilter"></select>
+          </label>
+          <label>
+            Typ
+            <select id="typeFilter"></select>
+          </label>
+          <label class="toggle-row">
+            <input id="pdfOnly" type="checkbox" />
+            Endast PDF
+          </label>
+        </div>
+
+        <div class="exam-layout">
+          <div class="exam-list" id="examList"></div>
+          <aside class="study-card">
+            <span class="mini-label">Dagens strategi</span>
+            <h3>Träna som om det vore provdag.</h3>
+            <p>Välj ett gammalt prov, sätt timer och rätta direkt efteråt. Skriv ner exakt vilka typer av fel som kom tillbaka.</p>
+            <button class="secondary-button" type="button" id="randomExam">Slumpa prov</button>
+          </aside>
+        </div>
+      </section>
+
+      <section class="section planner" id="studieplan">
+        <div class="planner-panel">
+          <div>
+            <p class="eyebrow">Studieplan</p>
+            <h2>Bygg en plan som faktiskt går att följa.</h2>
+            <p>Välj kurs och tid kvar. GymnasieOpus delar upp repetitionen i rimliga veckor.</p>
+          </div>
+          <form class="planner-form" id="plannerForm">
+            <label>
+              Ämne
+              <select id="plannerSubject"></select>
+            </label>
+            <label>
+              Kurs
+              <select id="plannerCourse"></select>
+            </label>
+            <label>
+              Veckor kvar
+              <input id="plannerWeeks" type="number" min="1" max="12" value="4" />
+            </label>
+            <label>
+              Timmar per vecka
+              <input id="plannerHours" type="number" min="1" max="20" value="4" />
+            </label>
+          </form>
+        </div>
+        <div class="timeline" id="timeline"></div>
+      </section>
+
+      <section class="section sources" id="kallor">
+        <div class="section-heading">
+          <p class="eyebrow">Officiella källor</p>
+          <h2>Materialet pekar tillbaka till rätt avsändare.</h2>
+        </div>
+        <div class="source-grid">
+          <a href="https://www.skolverket.se/prov-och-bedomning/nationella-prov/bestall-nationella-prov/gamla-nationella-prov" target="_blank" rel="noopener noreferrer" data-mark="SK">
+            <span>Skolverket</span>
+            <strong>Gamla nationella prov</strong>
+            <small>Huvudsida för frisläppta prov.</small>
+          </a>
+          <a href="https://www.umu.se/institutionen-for-tillampad-utbildningsvetenskap/np/np-2-4/tidigare-givna-prov/" target="_blank" rel="noopener noreferrer" data-mark="UM">
+            <span>Umeå universitet</span>
+            <strong>Matematik 2-4</strong>
+            <small>Tidigare givna prov med direktlänkar.</small>
+          </a>
+          <a href="https://www.su.se/enheter/prim-gruppen/nationella-prov/niva-1-kurs-1" target="_blank" rel="noopener noreferrer" data-mark="PR">
+            <span>PRIM-gruppen</span>
+            <strong>Matematik 1</strong>
+            <small>Frisläppta prov och stödmaterial.</small>
+          </a>
+          <a href="https://www.uu.se/nationella-prov/svenska-och-svenska-som-andrasprak/gymnasiet" target="_blank" rel="noopener noreferrer" data-mark="UU">
+            <span>Uppsala universitet</span>
+            <strong>Svenska och SVA</strong>
+            <small>Exempelmaterial och provinformation.</small>
+          </a>
+        </div>
+      </section>
+    </main>
+
+    <div class="pdf-modal" id="pdfModal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="pdfTitle">
+      <div class="pdf-shell">
+        <div class="pdf-topbar">
+          <div>
+            <span class="mini-label" id="pdfSource">Källa</span>
+            <h2 id="pdfTitle">PDF</h2>
+          </div>
+          <div class="pdf-actions">
+            <a class="secondary-button" id="pdfNewTab" href="https://www.skolverket.se/prov-och-bedomning/nationella-prov/bestall-nationella-prov/gamla-nationella-prov" target="_blank" rel="noopener noreferrer">Öppna i ny flik</a>
+            <button class="icon-button" id="closePdf" type="button" aria-label="Stäng PDF">×</button>
+          </div>
+        </div>
+        <div class="pdf-frame-wrap">
+          <iframe id="pdfFrame" title="Förhandsvisning av PDF"></iframe>
+          <div class="pdf-loading" id="pdfLoading">Laddar PDF...</div>
+          <div class="pdf-fallback">
+            PDF:en kunde inte visas direkt här. Öppna den i ny flik via knappen ovan.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <footer class="site-footer">
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <a class="brand" href="#top" aria-label="GymnasieOpus startsida">
+            <span class="brand-mark" aria-hidden="true"><span>G</span><i></i></span>
+            <span class="brand-word">Gymnasie<span>Opus</span></span>
+          </a>
+          <p>
+            En modern studieportal för gymnasieelever som vill hitta gamla nationella prov, officiella källor
+            och bygga smartare repetition.
+          </p>
+          <div class="footer-badges" aria-label="Sidans fokus">
+            <span>Officiella källor</span>
+            <span>97 PDF-länkar</span>
+            <span>Svensk UI</span>
+          </div>
+        </div>
+
+        <div class="footer-links" aria-label="Footer navigation">
+          <div>
+            <h2>Utforska</h2>
+            <a href="#amnen">Ämnen</a>
+            <a href="#provbank">Provbank</a>
+            <a href="#studieplan">Studieplan</a>
+          </div>
+          <div>
+            <h2>Källor</h2>
+            <a href="https://www.skolverket.se/prov-och-bedomning/nationella-prov/bestall-nationella-prov/gamla-nationella-prov" target="_blank" rel="noopener noreferrer">Skolverket</a>
+            <a href="https://www.umu.se/institutionen-for-tillampad-utbildningsvetenskap/np/np-2-4/tidigare-givna-prov/" target="_blank" rel="noopener noreferrer">Umeå universitet</a>
+            <a href="https://www.su.se/enheter/prim-gruppen/nationella-prov/niva-1-kurs-1" target="_blank" rel="noopener noreferrer">PRIM-gruppen</a>
+            <a href="https://www.gu.se/nationella-prov-frammande-sprak/prov-och-bedomningsstod-i-engelska/exempel-pa-uppgiftstyper" target="_blank" rel="noopener noreferrer">Göteborgs universitet</a>
+            <a href="https://www.uu.se/nationella-prov/svenska-och-svenska-som-andrasprak/gymnasiet" target="_blank" rel="noopener noreferrer">Uppsala universitet</a>
+          </div>
+          <div>
+            <h2>Kurser</h2>
+            <a href="#provbank" data-footer-subject="Matematik">Matematik</a>
+            <a href="#provbank" data-footer-subject="Engelska">Engelska</a>
+            <a href="#provbank" data-footer-subject="Svenska">Svenska</a>
+            <a href="#provbank" data-footer-subject="SVA">Svenska som andraspråk</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>GymnasieOpus är inte en officiell tjänst från Skolverket. Material öppnas från respektive källa.</p>
+        <a href="#top">Till toppen</a>
+      </div>
+    </footer>
+
+    <script src="script.js" defer></script>
+  </body>
+</html>
